@@ -1,7 +1,9 @@
 import Card from "./ui/card";
 import Nav from "./ui/navbar";
+import { getLatestListings } from "./lib/data";
 
-export default function Page(){
+export default async function Page(){
+  const listings = await getLatestListings(); 
   return(
     <main className="min-h-screen bg-gray-100">
 
@@ -26,9 +28,9 @@ export default function Page(){
       {/* Cards- these will be replaced by Card react components */}
       <section className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
 
-        <Card />
-        <Card />
-        <Card />
+        {listings.map((listing) => (
+          <Card key={listing.id} product={listing} />
+        ))}
 
       </section>
 
